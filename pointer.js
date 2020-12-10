@@ -38,12 +38,12 @@ const init_pointer = (options) => {
                 pointerFollowStiffness: 0.2,
                 pointerSize: 2.5,
                 pointerColor: "grey",
-                pointerBoxShadow: "0px 0px 0px 1px #FFFFFF",
+                pointerBoxShadow: "",
                 ringOutlineColor: "grey",
                 ringOutlineColorHover: "red",
                 ringInsideSize: 15,
                 ringInsideColor: "tansparent",
-                ringBoxShadow: "0px 0px 0px 1px #FFFFFF",
+                ringBoxShadow: "",
                 ringOutlineSize: 2,
                 ringOutlineStyle: "solid",
                 ringInsideSizeClick: (options["ringInsideSize"] || 15) - 5,
@@ -70,7 +70,7 @@ const init_pointer = (options) => {
         window.onmousemove = (mouse) => {
             mouseX = mouse.clientX
             mouseY = mouse.clientY
-            if(mouse.target.nodeName == "A")
+            if(["A","BUTTON"].indexOf(mouse.target.nodeName)>=0)
                 ring.style.borderColor = getOption("ringOutlineColorHover")
             else
                 ring.style.borderColor = getOption("ringOutlineColor")
