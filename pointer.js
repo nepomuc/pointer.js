@@ -40,6 +40,7 @@ const init_pointer = (options) => {
                 pointerColor: "grey",
                 pointerBoxShadow: "0px 0px 0px 1px #FFFFFF",
                 ringOutlineColor: "grey",
+                ringOutlineColorHover: "red",
                 ringInsideSize: 15,
                 ringInsideColor: "tansparent",
                 ringBoxShadow: "0px 0px 0px 1px #FFFFFF",
@@ -69,6 +70,10 @@ const init_pointer = (options) => {
         window.onmousemove = (mouse) => {
             mouseX = mouse.clientX
             mouseY = mouse.clientY
+            if(mouse.target.nodeName == "A")
+                ring.style.borderColor = getOption("ringOutlineColorHover")
+            else
+                ring.style.borderColor = getOption("ringOutlineColor")
             if(mouseNeverMovedYet) {
                 mouseNeverMovedYet = false
                 pointerUpdatePosition(mouseX,mouseY)
@@ -104,8 +109,14 @@ const init_pointer = (options) => {
 
             requestAnimationFrame(render)
         }
+        
+        let styleElement = document.createElement('style')
+        document.head.appendChild(styleElement)
 
-        document.body.style.cursor = "none"
+        let stylesheet = styleElement.sheet
+        stylesheet.insertRule('*{cursor: none !important}')
+
+
         document.body.insertBefore(pointer, document.body.children[0])
         document.body.insertBefore(ring, document.body.children[0])
 
